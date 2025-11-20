@@ -1,7 +1,7 @@
 import enum
 
 
-class Sensor:
+class SubDeviceModel:
     """
     传感器模型
     传感器模型包含以下属性:
@@ -26,8 +26,9 @@ class Register:
     - 描述 (description): 寄存器的描述信息，类型为字符串 (str)。
     """
 
-    def __init__(self, address: int, data_type: 'RegisterDataType', length: int, read_write: str, unit: str,
+    def __init__(self, id_: int, address: int, data_type: 'RegisterDataType', length: int, read_write: str, unit: str,
                  description: str):
+        self.id_ = id_
         self.address = address
         self.data_type = data_type
         self.length = length
