@@ -1,5 +1,5 @@
 from PySide6.QtGui import Qt
-from PySide6.QtWidgets import (QHBoxLayout, QVBoxLayout, QLabel, QTreeView, QTableView,
+from PySide6.QtWidgets import (QHBoxLayout, QVBoxLayout, QLabel, QTreeView, QTreeWidget,
                                QHeaderView,
                                QComboBox,
                                QPushButton,
@@ -22,7 +22,7 @@ class DeviceModelLayout(QVBoxLayout):
         model_label = QLabel("设备模型列表")
         self.addWidget(model_label)
 
-        model_tree_view = QTreeView()
+        model_tree_view = QTreeWidget()
         model_tree_view.setFixedWidth(250)
         self.addWidget(model_tree_view)
 
@@ -76,8 +76,8 @@ class DeviceListLayout(QVBoxLayout):
         self.command_layout.addWidget(self.delete_button)
         self.command_layout.addStretch()
 
-        device_table_view = QTableView()
-        self.addWidget(device_table_view)
+        self.device_tree_widget = DeviceTreeWidget()
+        self.addWidget(self.device_tree_widget)
 
     def bind_device_name_input_method(self):
         # 当用户点击输入框时，清空默认文本
@@ -91,3 +91,14 @@ class DeviceListLayout(QVBoxLayout):
 
         self.device_name_input.mousePressEvent = lambda event: clear_text()
         self.device_name_input.focusOutEvent = lambda event: reset_text()
+
+class DeviceTreeWidget(QTreeWidget):
+    def __init__(self):
+        super().__init__()
+        self.setHeaderHidden(False)
+        self.header().setSectionResizeMode(QHeaderView.Stretch)
+        self.set_columns(["设备名称", "设备分组", "最后在线时间"])
+        self.add_device("设备001", "分组A", "2024-06-01 12:00:00")
+        # 添加下级设备
+        self.add_device("设备002", "分组B", "2024-06-01 12:05:00")
+        
