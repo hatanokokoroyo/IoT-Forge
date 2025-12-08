@@ -1,0 +1,35 @@
+[
+    {
+        "property_name": "temperature",
+        // 寄存器类型: COIL|DISCRETE_INPUT|HOLDING|INPUT
+        "register_type": "HOLDING",
+        "address": 1,
+        // 值类型: BOOL|INT16|UINT16|INT32|UINT32|INT64|UINT64|FLOAT|DOUBLE
+        "data_type": "INT16",
+        // 如果是fixed类型，则data_assign生效；如果是random类型，则data_random_range生效
+        "data_generate_type": "random",
+        "data_assign": 1,
+        // 随机值范围, 可能是整数也可能是浮点数
+        "data_random_range": {
+            "min": 20,
+            "max": 30
+        },
+        // 端序: BIG|LITTLE
+        "endian": "big",
+        "desc": "温度, 单位摄氏度"
+    },
+    {
+        "property_name": "humidity",
+        "register_type": "HOLDING",
+        "address": 2,
+        "data_type": "INT16",
+        "data_genetate_type": "random",
+        "data_assign": 1,
+        "data_random_range": {
+            "min": 30,
+            "max": 90
+        },
+        "endian": "BIG",
+        "desc": "湿度, 单位%"
+    }
+]
