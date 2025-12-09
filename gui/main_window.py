@@ -18,15 +18,11 @@ class MainWindow(QWidget):
         self.main_layout = QVBoxLayout()
         self.setLayout(self.main_layout)
 
-        # 第一行 菜单栏
-        self.menu_layout = MenuWidget()
-        self.main_layout.addLayout(self.menu_layout, 1)
-
-        # 第二行 左侧树形列表, 右侧设备列表
+        # 左侧树形列表, 右侧设备列表
         self.device_layout = DeviceLayout()
         self.main_layout.addLayout(self.device_layout, 6)
 
-        # 第三行 底部日志输出栏
+        # 底部日志输出栏
         self.log_layout = LogWidget()
         self.main_layout.addLayout(self.log_layout, 3)
 

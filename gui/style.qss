@@ -1,0 +1,128 @@
+/* 全局设置 */
+QWidget {
+    background-color: #f5f6f8;
+    color: #333333;
+    font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
+    font-size: 12px;
+}
+
+/* 滚动条美化 */
+QScrollBar:vertical {
+    border: none;
+    background: #f0f0f0;
+    width: 8px;
+    margin: 0px;
+}
+QScrollBar::handle:vertical {
+    background: #c1c1c1;
+    min-height: 20px;
+    border-radius: 4px;
+}
+QScrollBar::handle:vertical:hover {
+    background: #a8a8a8;
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+/* 按钮通用样式 */
+QPushButton {
+    background-color: #ffffff;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    padding: 6px 12px;
+    color: #606266;
+}
+QPushButton:hover {
+    color: #409eff;
+    border-color: #c6e2ff;
+    background-color: #ecf5ff;
+}
+QPushButton:pressed {
+    color: #3a8ee6;
+    border-color: #3a8ee6;
+    background-color: #ecf5ff;
+}
+
+/* 输入框通用样式 */
+QLineEdit, QTextEdit, QPlainTextEdit {
+    background-color: #ffffff;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    padding: 4px;
+    selection-background-color: #409eff;
+}
+QLineEdit:focus, QTextEdit:focus, QPlainTextEdit:focus {
+    border: 1px solid #409eff;
+}
+
+/* 树形控件 (左侧列表) */
+/*详细说明: QTreeWidget 用于左侧设备模型列表，设置背景色为白色，边框为浅灰色，圆角4px，无外边框。每个项目高度32px，内边距4px。悬停时背景色变为浅蓝色(#f5f7fa)，选中时背景色为更深的蓝色(#ecf5ff)，文字颜色变为深灰色(#333333)。*/
+QTreeWidget {
+    background-color: #ffffff;
+    border: 1px solid #e4e7ed;
+    border-radius: 4px;
+    outline: none;
+}
+QTreeWidget::item {
+    height: 24px;
+    padding: 4px;
+}
+QTreeWidget::item:hover {
+    background-color: #f5f7fa;
+}
+QTreeWidget::item:selected {
+    background-color: #ecf5ff;
+    color: #409eff;
+}
+
+/* 表格/列表控件 (右侧设备列表) */
+QTableWidget, QListWidget {
+    background-color: #ffffff;
+    border: 1px solid #e4e7ed;
+    border-radius: 4px;
+    gridline-color: #ebeef5;
+}
+QHeaderView::section {
+    background-color: #f5f7fa;
+    padding: 6px;
+    border: none;
+    border-bottom: 1px solid #ebeef5;
+    border-right: 1px solid #ebeef5;
+    font-weight: bold;
+    color: #606266;
+}
+QTableWidget::item:selected {
+    background-color: #ecf5ff;
+    color: #333333;
+}
+
+/* 分组框 */
+QGroupBox {
+    border: 1px solid #e4e7ed;
+    border-radius: 4px;
+    margin-top: 10px;
+    background-color: #ffffff;
+    font-weight: bold;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 5px;
+    left: 10px;
+    color: #909399;
+}
+
+/* 菜单栏区域 (假设 MenuWidget 使用了 QFrame 或特定背景) */
+MenuWidget {
+    background-color: #ffffff;
+    border-bottom: 1px solid #dcdfe6;
+}
+
+/* 日志区域 (假设 LogWidget 包含一个 QTextEdit) */
+LogWidget QTextEdit {
+    background-color: #2b2b2b;
+    color: #f0f0f0;
+    border: 1px solid #444;
+    font-family: "Consolas", "Courier New", monospace;
+}

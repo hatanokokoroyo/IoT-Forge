@@ -10,6 +10,7 @@ from PySide6.QtWidgets import (
     QPushButton,
     QLineEdit,
     QTreeWidgetItem,
+    QWidget,
 )
 from repository.device_model import DeviceModel
 from repository.device import Device
@@ -19,39 +20,49 @@ class DeviceLayout(QHBoxLayout):
     def __init__(self):
         super().__init__()
 
-        self.model_layout = DeviceModelLayout()
-        self.list_layout = DeviceListLayout()
+        self.device_model_layout = DeviceModelLayout()
+        self.addLayout(self.device_model_layout)
 
-        self.addLayout(self.model_layout)
-        self.addLayout(self.list_layout)
+        self.device_layout = DeviceListLayout()
+        self.addLayout(self.device_layout)
 
     def update_data(self, devices, models):
         """统一更新数据入口"""
-        self.list_layout.update_devices(devices)
-        self.model_layout.update_models(models)
+        self.device_layout.update_devices(devices)
+        self.device_model_layout.update_models(models)
 
 
 class DeviceModelLayout(QVBoxLayout):
     def __init__(self):
         super().__init__()
 
-        model_label = QLabel("设备模型列表")
-        self.addWidget(model_label)
-
         # 设备模型列表
         self.model_tree_view = QTreeWidget()
         self.addWidget(self.model_tree_view)
+        self.model_tree_view.setContentsMargins(0, 0, 0, 0)
 
         self.model_tree_view.setFixedWidth(250)
-        # 设置表头
+        # 设置表头 "模型列表", ""
         self.model_tree_view.setHeaderHidden(False)
-        # self.model_tree_view.header().setSectionResizeMode(QHeaderView.Stretch)
-        self.model_tree_view.setHeaderLabels(["模型列表"])
-        # 固定添加两行: 网关模型; 从设备模型
+        self.model_tree_view.setHeaderLabels(["模型列表", "操作"])
+        # 第一列长度180, 第二列弹性
+        self.model_tree_view.setColumnWidth(0, 180)
+        self.model_tree_view.setColumnWidth(1, 40)
+        
+        
+        
+        # 固定添加两行: 网关模型, 从设备模型; 每行添加一个新增按钮
         self.gateway_item = QTreeWidgetItem(["网关模型"])
         self.model_tree_view.addTopLevelItem(self.gateway_item)
+        self.add_gateway_model_button = QPushButton("新增")
+        self.model_tree_view.setItemWidget(self.gateway_item, 1, self.add_gateway_model_button)
+        
         self.slave_item = QTreeWidgetItem(["从设备模型"])
         self.model_tree_view.addTopLevelItem(self.slave_item)
+        self.add_slave_model_button = QPushButton("新增")
+        self.model_tree_view.setItemWidget(self.slave_item, 1, self.add_slave_model_button)
+        # 默认展开所有
+        self.model_tree_view.expandAll()
 
     def update_models(self, models: list[DeviceModel]):
         """刷新模型列表"""
@@ -64,14 +75,11 @@ class DeviceModelLayout(QVBoxLayout):
                 self.gateway_item.addChild(item)
             else:
                 self.slave_item.addChild(item)
-
+    
 
 class DeviceListLayout(QVBoxLayout):
     def __init__(self):
         super().__init__()
-
-        self.list_label = QLabel("设备列表")
-        self.addWidget(self.list_label)
 
         # 搜索栏
         self.search_layout = QHBoxLayout()
