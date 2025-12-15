@@ -65,7 +65,7 @@ QTreeWidget {
     outline: none;
 }
 QTreeWidget::item {
-    height: 24px;
+    height: 28px;
     padding: 4px;
 }
 QTreeWidget::item:hover {

@@ -2,18 +2,16 @@ from PySide6.QtGui import Qt
 from PySide6.QtWidgets import (
     QHBoxLayout,
     QVBoxLayout,
-    QLabel,
-    QTreeView,
     QTreeWidget,
     QHeaderView,
     QComboBox,
     QPushButton,
     QLineEdit,
     QTreeWidgetItem,
-    QWidget,
 )
+
+from gui.widgets.add_model import AddGateWayModelWidget
 from repository.device_model import DeviceModel
-from repository.device import Device
 
 
 class DeviceLayout(QHBoxLayout):
@@ -48,15 +46,17 @@ class DeviceModelLayout(QVBoxLayout):
         # 第一列长度180, 第二列弹性
         self.model_tree_view.setColumnWidth(0, 180)
         self.model_tree_view.setColumnWidth(1, 40)
-        
-        
-        
+
         # 固定添加两行: 网关模型, 从设备模型; 每行添加一个新增按钮
         self.gateway_item = QTreeWidgetItem(["网关模型"])
         self.model_tree_view.addTopLevelItem(self.gateway_item)
         self.add_gateway_model_button = QPushButton("新增")
         self.model_tree_view.setItemWidget(self.gateway_item, 1, self.add_gateway_model_button)
-        
+
+        # 当点击新增按钮时, 弹出添加网关模型窗口
+        self.add_gateway_model_dialog = AddGateWayModelWidget()
+        self.add_gateway_model_button.clicked.connect(self.add_gateway_model_dialog.show)
+
         self.slave_item = QTreeWidgetItem(["从设备模型"])
         self.model_tree_view.addTopLevelItem(self.slave_item)
         self.add_slave_model_button = QPushButton("新增")
@@ -75,7 +75,7 @@ class DeviceModelLayout(QVBoxLayout):
                 self.gateway_item.addChild(item)
             else:
                 self.slave_item.addChild(item)
-    
+
 
 class DeviceListLayout(QVBoxLayout):
     def __init__(self):
